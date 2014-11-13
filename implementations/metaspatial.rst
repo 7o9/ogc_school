@@ -35,7 +35,7 @@ Getting a Map Image
 -------------------
 The ``GetMap`` request queries the server with a set of parameters describing the map image. The values of the parameters are taken from the Capabilities document (see above). A correctly formulated ``GetMap`` request will create the image shown below. 
 
-*The URL of this link has been trunkated for better readability.*::
+*The URL of this link has been truncated for better readability.*::
 
 	http://metaspatial.net/cgi-bin/ogc-wms.xml?
 	VERSION=1.3.0&
@@ -63,7 +63,7 @@ Use the link: `GetMap <http://metaspatial.net/cgi-bin/ogc-wms.xml?VERSION=1.3.0&
 Layers
 ------
 
-WMS can be structured into layers. Each layer can be queried individually or in combination with another layer. Layers will be drawn in the order requested, the first at the bottom of the image and eacht layer stacked on top. If an opaque layer is rendered at the top of the image it may cover all the other layers. 
+WMS can be structured into layers. Each layer can be queried individually or in combination with another layer. Layers will be drawn in the order requested, the first at the bottom of the image and each layer stacked on top. If an opaque layer is rendered at the top of the image it may cover all the other layers. 
 
 Every server has one root layer which contains the name of the server, here it is: ``OGC WMS Reference Server``. This server has seven map layers:
 
@@ -86,12 +86,12 @@ In the following request the layer "Overview" has been taken out of the request 
 Note
 ~~~~
 
-Most server implementations will always render all requested layers regardless of whether they are visible in the final map image or not. In the above example the Digital Terrain Model of Great Britain will always be rendered even if the overview map completely hides it. If you want to reduce the load on your server you might want to avoid this by combining layers in a more useful way or setting up a separate WMS for each content. Always remember that the OGC WMS interface standard gives you a lot of freedom to experiment and create an optimized set of services and layers for your content. But it needs a lot of experimentation and thought to get there. Strictly adhering to the standard will ensure that your service will be interoperable but it does not guarantee optimized performance. This is where your know-how and skilful means are needed. 
+Most server implementations will always render all requested layers regardless of whether they are visible in the final map image or not. In the above example the Digital Terrain Model of Great Britain will always be rendered even if the overview map completely hides it. If you want to reduce the load on your server you might want to avoid this by combining layers in a more useful way or setting up a separate WMS for each content. Always remember that the OGC WMS interface standard gives you a lot of freedom to experiment and create an optimized set of services and layers for your content. But it needs a lot of experimentation and thought to get there. Strictly adhering to the standard will ensure that your service will be interoperable but it does not guarantee optimized performance. This is where your know-how and skillful means are needed. 
 
 Transparency / Translucency
 ---------------------------
 
-The map image can be overlayed with maps from other servers. In those cases it may be helpful to request the top level image in a format which supports a transparency such as the aplha channel. Then we can see what is below this map image. 
+The map image can be overlayed with maps from other servers. In those cases it may be helpful to request the top level image in a format which supports a transparency such as the alpha channel. Then we can see what is below this map image. 
 
 The following examples show how each layer can be transparent and reveal what is underneath.
 
@@ -101,7 +101,7 @@ The following examples show how each layer can be transparent and reveal what is
 		:scale: 100
 		:alt: Map with translucent overlay
 
-This request additionally requests the DTM layer which adds the black to grey shading:
+This request additionally requests the DTM layer which adds the black to gray shading:
 
 	.. image:: images/GetMap_translucent.png
 		:width: 400
@@ -160,7 +160,7 @@ Typically the server will return an error message like this: ::
 		</ServiceException>
 	</ServiceExceptionReport>
 
-`Note that differrent software may return different text messages along the ``ServiceException code``. `
+`Note that different software may return different text messages along the ``ServiceException code``. `
 
 One problem may be that the client cannot display this message in the image display element. An HTML client in a browser would simply show the above message as a broken image, something like this:
 
@@ -207,7 +207,7 @@ Before querying for objects we need to see a map. We use the GetMap request to g
 	FORMAT=image/png&
 	EXCEPTIONS=XML
 
-Teh result will look like this: 
+The result will look like this: 
 
 	.. image:: images/new-forest_national-park_map.png
 		:width: 400
@@ -220,7 +220,7 @@ In the next step the user has to click into the map. Let's assume the user has c
 	X=231
 	Y=280
 
-Then the client will create a ``GetFeatureInfo`` request and submit all the informaion needed by the server to decode this request: :: 
+Then the client will create a ``GetFeatureInfo`` request and submit all the information needed by the server to decode this request: :: 
 
 	http://metaspatial.net/cgi-bin/ogc-wms.xml?
 	VERSION=1.3.0&
@@ -237,7 +237,7 @@ Then the client will create a ``GetFeatureInfo`` request and submit all the info
 	&X=231&
 	Y=280
 
-Note that the URL contains information which we do not expect ot need, for example the pixel size of the map. The size of the map is required for the server to decode the click position and then transform it into real world coordinates by using the BBOX (Bounding Box) parameter. Only then can the server query it's database for features. 
+Note that the URL contains information which we do not expect to need, for example the pixel size of the map. The size of the map is required for the server to decode the click position and then transform it into real world coordinates by using the BBOX (Bounding Box) parameter. Only then can the server query it's database for features. 
 
 If it finds anything it will return them in the requested format (here an HTML file). In this example the server finds a pub called "The Crown Stirrup" and a bus stop named "Ye Old Crown and Stirrup".  
 
@@ -292,4 +292,4 @@ The result shows a legend item with the color of the areas covered by National P
 Note
 ~~~~
 
-Every server will return different looking legends. This makes it hard to impossible to create a homegeneous legend by using generic requests to different servers. Therefore especially dynamic clients must be aware that there are many different ways this feature can be implemented. 
+Every server will return different looking legends. This makes it hard to impossible to create a homogeneous legend by using generic requests to different servers. Therefore especially dynamic clients must be aware that there are many different ways this feature can be implemented. 
