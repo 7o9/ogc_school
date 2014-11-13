@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<msGMLOutput 
+	 xmlns:gml="http://www.opengis.net/gml"
+	 xmlns:xlink="http://www.w3.org/1999/xlink"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<osm_points_layer>
+	<gml:name>OpenStreetMap point objects</gml:name>
+		<osm_points_feature>
+			<gml:boundedBy>
+				<gml:Box srsName="EPSG:27700">
+					<gml:coordinates>430185.447238,107033.115034 430185.447238,107033.115034</gml:coordinates>
+				</gml:Box>
+			</gml:boundedBy>
+			<osm_id>16494895</osm_id>
+			<timestamp>2006-09-24T01:55:58Z</timestamp>
+			<name>The Crown Stirrup</name>
+			<type>pub</type>
+		</osm_points_feature>
+		<osm_points_feature>
+			<gml:boundedBy>
+				<gml:Box srsName="EPSG:27700">
+					<gml:coordinates>430172.215950,107071.994504 430172.215950,107071.994504</gml:coordinates>
+				</gml:Box>
+			</gml:boundedBy>
+			<osm_id>503420358</osm_id>
+			<timestamp>2009-09-20T16:44:15Z</timestamp>
+			<name>Ye Old Crown and Stirrup</name>
+			<type>bus_stop</type>
+		</osm_points_feature>
+	</osm_points_layer>
+</msGMLOutput>

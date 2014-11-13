@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<msGMLOutput 
+	 xmlns:gml="http://www.opengis.net/gml"
+	 xmlns:xlink="http://www.w3.org/1999/xlink"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<osm_points_layer>
+	<gml:name>OpenStreetMap point objects</gml:name>
+		<osm_points_feature>
+			<gml:boundedBy>
+				<gml:Box srsName="EPSG:27700">
+					<gml:coordinates>430185.447238,107033.115034 430185.447238,107033.115034</gml:coordinates>
+				</gml:Box>
+			</gml:boundedBy>
+		</osm_points_feature>
+	</osm_points_layer>
+</msGMLOutput>
