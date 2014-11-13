@@ -263,7 +263,7 @@ If you need more structured information the best bet is to request for a GML fil
 		:scale: 100
 		:alt: Result of a GetFeatureInfo request. 
 
-To get the informaiton in the GML format simply change the parameter ``INFO_FORMAT`` to read: ::
+To get the information in the GML format simply change the parameter ``INFO_FORMAT`` to read: ::
 
 	INFO_FORMAT=text/html&
 
