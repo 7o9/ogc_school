@@ -116,7 +116,7 @@ The following examples show how each layer can be transparent and reveal what is
 		:width: 400
 		:height: 300
 		:scale: 100
-		:alt: Map with translucent overlay
+		:alt: Map with opaque overlay
 
 This request additionally requests the DTM layer which adds the black to gray shading:
 
@@ -142,7 +142,7 @@ The client can "zoom in" and "zoom out" of the map by calculating new values for
 
 It is important to note that the server only returns an image to the client, but no additional information about the size, coordinate system, scale, etc. Therefore the server must make sure that it also returns images which may look "wrong" because the client has requested a 'squashed' image (for example with a width to height ratio other than 1:1). If the server would return anything other than exactly what was requested then the client will base its next request on wrong parameters. 
 
-The following image shows the same area as above but with the different parameters for the WIDTH which has been changed from 400 pixels in the example above to 200 pixels here. ::
+The following image shows the same area as above but with the different parameters for the WIDTH which has been changed from 400 pixels in the example above to WIDTH=200 pixels here. The rest of the URL is unchanged ::
 
 	...
 	WIDTH=200&
@@ -156,6 +156,95 @@ The resulting image covers the same area as defined by the bounding box coordina
 		:height: 300
 		:scale: 100
 		:alt: Map image with changed width-to-height ratio
+
+Use the link: `Get squashed Map <http://metaspatial.net/cgi-bin/ogc-wms.xml?VERSION=1.3.0&REQUEST=GetMap&SERVICE=WMS&LAYERS=DTM,Overview,Raster_250K,Topography,nationalparks,Infrastructure,Places&STYLES=,,,,,,&CRS=EPSG:27700&BBOX=424735.97883597884,96026.98412698413,467064.02116402116,127773.01587301587&WIDTH=400&HEIGHT=300&FORMAT=image/png&BGCOLOR=0xffffff&TRANSPARENT=TRUE&EXCEPTIONS=XML>`_ to retrieve the map image form the OGC Demo and Reference Server. 
+
+Reprojecting Maps
+-----------------
+
+The OGC WMS standard allows to project maps in different coordinate systems. So far we have been using the EPSG Code 27700 which is described as the "OSGB 1936 / British National Grid". It is useful to display the British Isles but will not work to display Peru in a useful way. Therefore we can switch between coordinate systems using any of the EPSG codes that are advertized by the server in the Capabilities document. The OGC Demo and Reference Server offers the following repojections :: 
+
+	<CRS>EPSG:4326</CRS>
+	<CRS>EPSG:27700</CRS>
+	<CRS>EPSG:4258</CRS>
+	<CRS>EPSG:29903</CRS>
+	<CRS>EPSG:2157</CRS>
+	<CRS>EPSG:3035</CRS>
+	<CRS>EPSG:4937</CRS>
+	<CRS>EPSG:3034</CRS>
+	<CRS>EPSG:4936</CRS>
+	<CRS>EPSG:3038</CRS>
+	<CRS>EPSG:3039</CRS>
+	<CRS>EPSG:3040</CRS>
+	<CRS>EPSG:3041</CRS>
+	<CRS>EPSG:3042</CRS>
+	<CRS>EPSG:3043</CRS>
+	<CRS>EPSG:3044</CRS>
+	<CRS>EPSG:3045</CRS>
+	<CRS>EPSG:3046</CRS>
+	<CRS>EPSG:3047</CRS>
+	<CRS>EPSG:3048</CRS>
+	<CRS>EPSG:3049</CRS>
+	<CRS>EPSG:3050</CRS>
+	<CRS>EPSG:3051</CRS>
+	<CRS>EPSG:900913</CRS>
+
+To reproject the maps we have to change the Coordinate Reference System (CRS) and the Bounding Box (BBOX) parameters. The result can look like this: 
+
+	.. image:: images/GetMap_EPSG_27700_4326.png
+		:width: 456
+		:height: 307
+		:scale: 100
+		:alt: Maps in EPSG:27700 and EPSG:4326 side by side
+
+Use the link: `GetMap 27700 <http://metaspatial.net/cgi-bin/ogc-wms.xml?VERSION=1.3.0&REQUEST=GetMap&SERVICE=WMS&LAYERS=Overview,Raster_250K,nationalparks,Topography,Infrastructure,osm_points&STYLES=,,,,,&CRS=EPSG:27700&BBOX=-205339.46257282258,9150.391029090388,759739.9025065425,1308621.2904999899&WIDTH=228&HEIGHT=307&FORMAT=image/png&BGCOLOR=0xffffff&TRANSPARENT=TRUE&EXCEPTIONS=XML>`_ to retrieve the map image in the original British coordinate system a seen on the left. Use the link: `GetMap 4326 <http://metaspatial.net/cgi-bin/ogc-wms.xml?VERSION=1.3.0&REQUEST=GetMap&SERVICE=WMS&LAYERS=Overview,Raster_250K,nationalparks,Topography,Infrastructure,osm_points&STYLES=,,,,,&CRS=EPSG:4326&BBOX=48.56359649022807,-8.300000001,62.83640350777194,2.2999999989999997&WIDTH=228&HEIGHT=307&FORMAT=image/png&BGCOLOR=0xffffff&TRANSPARENT=TRUE&EXCEPTIONS=XML>`_ to retrieve the map image in the World Geodetic System '84 `(WGS 84) <http://spatialreference.org/ref/epsg/4326/>`_ as seen on the right.
+
+If you compare the two URLs there are two major changes ,the CRS and the BBOX ::
+
+	http://metaspatial.net/cgi-bin/ogc-wms.xml?
+	VERSION=1.3.0&
+	REQUEST=GetMap&
+	SERVICE=WMS&
+	LAYERS=Overview&
+	CRS=EPSG:27700&
+	BBOX=-205339.46,9150.39,759739.90,1308621.29&
+	WIDTH=228&
+	HEIGHT=307&
+	FORMAT=image/png&
+
+In the second request the CRS value ist EPSG:4326 and therefore the BBOX also requires completely different parameters (latitude and longitude coordinates in decimal degrees). This means that in order to switch from one coordinate system to another we need to transform coordinates. The OGC Coordinate Transformation Service covers this functionality. 
+
+	http://metaspatial.net/cgi-bin/ogc-wms.xml?
+	VERSION=1.3.0&
+	REQUEST=GetMap&
+	SERVICE=WMS&
+	LAYERS=Overview&
+	CRS=EPSG:4326&
+	BBOX=48.5635,-8.3,62.8364,2.2999&
+	WIDTH=228&
+	HEIGHT=307&
+	FORMAT=image/png&
+
+Another well known coordinate system is EPSG:900913 which is for example used by Google Maps. It is designed to be usable around the whole world. 
+
+	.. image:: images/GetMap_EPSG_3042_900913.png
+		:width: 456
+		:height: 307
+		:scale: 100
+		:alt: Maps in EPSG:3042 and EPSG:900913 side by side
+
+Use the link `GetMap in 3042 <http://metaspatial.net/cgi-bin/ogc-wms.xml?VERSION=1.3.0&REQUEST=GetMap&SERVICE=WMS&LAYERS=Overview,Raster_250K,nationalparks,Topography,Infrastructure,osm_points&STYLES=,,,,,&CRS=EPSG:3042&BBOX=5498135.96491228,115000,6561864.03508772,905000&WIDTH=228&HEIGHT=307&FORMAT=image/png&BGCOLOR=0xffffff&TRANSPARENT=TRUE&EXCEPTIONS=XML>`_ and `GetMap in 900913 <http://metaspatial.net/cgi-bin/ogc-wms.xml?VERSION=1.3.0&REQUEST=GetMap&SERVICE=WMS&LAYERS=Overview,Raster_250K,nationalparks,Topography,Infrastructure,osm_points&STYLES=,,,,,&CRS=EPSG:900913&BBOX=-1028968.2824682,6362310.251237994,348968.28246819996,8217689.748762006&WIDTH=228&HEIGHT=307&FORMAT=image/png&BGCOLOR=0xffffff&TRANSPARENT=TRUE&EXCEPTIONS=XML>`_. 
+
+The left hand side of the image shows the same mape in the Europen Terrestrial Reference System '89 (EPSG:3042) which has been desinged to cover all of Europe for scales larger than 1:500k. On the right hand you can see the EPSG:900913 projection and how it deforms the maps and makes the southern parts look considerably 'narrower' than they are in reality. 
+
+Note
+~~~~
+
+Coordinate systems, coordinate transformation and projections can become a pretty complex topic. EPSG refers to the "European Petroleum Survey Group" who were the first to collect and maintain a geodetic parameter set of Earth ellipsoids, geodetic datums, geographic and projected coordinate systems, units of measurement, and so on. The EPSG registry is nowadays located at `http://www.epsg-registry.org/ <http://www.epsg-registry.org/>`_ and is managed by the International Association of Oil & Gas Producers (IOPG ).
+
+Another excellent Online site to find the right code and all paramters required to do the math is located at `http://spatialreference.org/ <http://spatialreference.org/>`_. 
+
+Also note that as you can see in the map examples above it is almost impossible to give an exact scale for these map images as it is  differrent at every place. 
 
 Error Messages
 --------------
