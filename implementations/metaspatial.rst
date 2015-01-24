@@ -77,6 +77,21 @@ Every server has one root layer which contains the name of the server, here it i
 
 In the following request the layer "Overview" has been taken out of the request but otherwise the request is unchanged. It reveals the digital terrain model (DTM), a layer that was previously invisible.
 
+*The URL of this link has been truncated for better readability.*::
+
+	http://metaspatial.net/cgi-bin/ogc-wms.xml?
+	VERSION=1.3.0&
+	REQUEST=GetMap&
+	SERVICE=WMS&
+	LAYERS=DTM,Raster_250K,Topography,nationalparks,Infrastructure,Places&
+	CRS=EPSG:27700&
+	BBOX=424735.97883597884,96026.98412698413,467064.02116402116,127773.01587301587&
+	WIDTH=400&
+	HEIGHT=300&
+	FORMAT=image/png&
+
+Use the link: `GetMap without Overview <http://metaspatial.net/cgi-bin/ogc-wms.xml?VERSION=1.3.0&REQUEST=GetMap&SERVICE=WMS&LAYERS=DTM,Raster_250K,Topography,nationalparks,Infrastructure,Places&CRS=EPSG:27700&BBOX=424735.97883597884,96026.98412698413,467064.02116402116,127773.01587301587&WIDTH=400&HEIGHT=300&FORMAT=image/png>`_ to retrieve the map image form the OGC Demo and Reference Server. 
+
 	.. image:: images/metaspatial.net_GetMap_opaque.png
 		:width: 400
 		:height: 300
@@ -85,6 +100,8 @@ In the following request the layer "Overview" has been taken out of the request 
 
 Note
 ~~~~
+
+The above link is a bit shorter because we ignored some parameters like TRANSPARENCY and BGCOLOR which are optional. 
 
 Most server implementations will always render all requested layers regardless of whether they are visible in the final map image or not. In the above example the Digital Terrain Model of Great Britain will always be rendered even if the overview map completely hides it. If you want to reduce the load on your server you might want to avoid this by combining layers in a more useful way or setting up a separate WMS for each content. Always remember that the OGC WMS interface standard gives you a lot of freedom to experiment and create an optimized set of services and layers for your content. But it needs a lot of experimentation and thought to get there. Strictly adhering to the standard will ensure that your service will be interoperable but it does not guarantee optimized performance. This is where your know-how and skillful means are needed. 
 
