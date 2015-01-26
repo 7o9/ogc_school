@@ -1,4 +1,4 @@
-. 
+.
 
 Metaspatial WMS 1.3 Server 
 ===========================
@@ -162,7 +162,7 @@ Use the link: `Get squashed Map <http://metaspatial.net/cgi-bin/ogc-wms.xml?VERS
 Reprojecting Maps
 -----------------
 
-The OGC WMS standard allows to reproject data to into different coordinate systems. So far we have been using the EPSG Code 27700 which is described as the "OSGB 1936 / British National Grid". It is useful to display the British Isles but it will not work well to display the whole world in a useful way. Therefore the OGC WMS standard has built in the capcbility to switch between coordinate systems dynamically. Not ever coordinate system can be used for every location on the earth, therefor every WMS needs to advertize in the Capabilities document which coordinate systems it supports. The OGC Demo and Reference Server offers the following list of coordinate systems:: 
+The OGC WMS standard allows to generate map images in different coordinate systems. So far we have been using the coordinate system "OSGB 1936 / British National Grid" which is referenced in the EPSG database under Code 27700 (see also the Note below). This coordinate system is useful to display the British Isles but it will not work well to display the whole world. Therefore the OGC WMS standard has built in the capability to switch between coordinate systems dynamically. Not every coordinate system can be used for every location on the earth, therefore every WMS needs to advertize which coordinate systems it supports in the Capabilities document. The OGC Demo and Reference Server offers the following list of coordinate systems:: 
 
 	<CRS>EPSG:4326</CRS>
 	<CRS>EPSG:27700</CRS>
@@ -189,7 +189,7 @@ The OGC WMS standard allows to reproject data to into different coordinate syste
 	<CRS>EPSG:3051</CRS>
 	<CRS>EPSG:900913</CRS>
 
-To reproject the maps we simply have to change the Coordinate Reference System (CRS) and the Bounding Box (BBOX) parameters. In the image below you can see two requests side by side, on the legt is the original EPSG:22770 and on the right hand side EPSG:4326: 
+To request a map in a different coordinate system we simply have to change the Coordinate Reference System (CRS) and the Bounding Box (BBOX) parameters. In the image below you can see two requests side by side, on the left is the original EPSG:22770 and on the right hand side EPSG:4326: 
 
 	.. image:: images/GetMap_EPSG_27700_4326.png
 		:width: 456
@@ -199,7 +199,7 @@ To reproject the maps we simply have to change the Coordinate Reference System (
 
 Use the link: `GetMap 27700 <http://metaspatial.net/cgi-bin/ogc-wms.xml?VERSION=1.3.0&REQUEST=GetMap&SERVICE=WMS&LAYERS=Overview,Raster_250K,nationalparks,Topography,Infrastructure,osm_points&STYLES=,,,,,&CRS=EPSG:27700&BBOX=-205339.46257282258,9150.391029090388,759739.9025065425,1308621.2904999899&WIDTH=228&HEIGHT=307&FORMAT=image/png&BGCOLOR=0xffffff&TRANSPARENT=TRUE&EXCEPTIONS=XML>`_ to retrieve the map image in the original British coordinate system a seen on the left. Use the link: `GetMap 4326 <http://metaspatial.net/cgi-bin/ogc-wms.xml?VERSION=1.3.0&REQUEST=GetMap&SERVICE=WMS&LAYERS=Overview,Raster_250K,nationalparks,Topography,Infrastructure,osm_points&STYLES=,,,,,&CRS=EPSG:4326&BBOX=48.56359649022807,-8.300000001,62.83640350777194,2.2999999989999997&WIDTH=228&HEIGHT=307&FORMAT=image/png&BGCOLOR=0xffffff&TRANSPARENT=TRUE&EXCEPTIONS=XML>`_ to retrieve the map image in the World Geodetic System '84 `(WGS 84) <http://spatialreference.org/ref/epsg/4326/>`_ as seen on the right.
 
-If you compare the two URLs there are two major changes ,the CRS and the BBOX ::
+If you compare the two URLs there are two major changes, the CRS and the BBOX ::
 
 	http://metaspatial.net/cgi-bin/ogc-wms.xml?
 	VERSION=1.3.0&
@@ -212,7 +212,7 @@ If you compare the two URLs there are two major changes ,the CRS and the BBOX ::
 	HEIGHT=307&
 	FORMAT=image/png&
 
-In the second request the CRS value ist EPSG:4326 and therefore the BBOX also requires completely different parameters (latitude and longitude coordinates in decimal degrees). This means that in order to switch from one coordinate system to another we need to transform coordinates. The OGC Coordinate Transformation Service covers this functionality. 
+In the second request the CRS value ist EPSG:4326 and therefore the BBOX also requires completely different parameters (latitude and longitude coordinates in decimal degrees). This means that in order to switch from one coordinate system to another we need to transform coordinates. The OGC Coordinate Transformation Service covers this functionality. ::
 
 	http://metaspatial.net/cgi-bin/ogc-wms.xml?
 	VERSION=1.3.0&
@@ -240,11 +240,13 @@ The left hand side of the image shows the same mape in the Europen Terrestrial R
 Note
 ~~~~
 
-Coordinate systems, coordinate transformation and projections can become a pretty complex topic. EPSG refers to the "European Petroleum Survey Group" who were the first to collect and maintain a geodetic parameter set of Earth ellipsoids, geodetic datums, geographic and projected coordinate systems, units of measurement, and so on. The EPSG registry is nowadays located at `http://www.epsg-registry.org/ <http://www.epsg-registry.org/>`_ and is managed by the International Association of Oil & Gas Producers (IOPG ).
+Coordinate systems, coordinate transformation and projections are a pretty complex topic. EPSG refers to the "European Petroleum Survey Group" who were the first to collect and maintain a geodetic parameter set of Earth ellipsoids, geodetic datums, geographic and projected coordinate systems, units of measurement, and so on. The EPSG registry is nowadays located at `http://www.epsg-registry.org/ <http://www.epsg-registry.org/>`_ and is managed by the International Association of Oil & Gas Producers (IOPG ).
 
-Another excellent Online site to find the right code and all paramters required to do the math is located at `http://spatialreference.org/ <http://spatialreference.org/>`_. 
+Another excellent Online site to find the right code and all parameters required to do the math is located at `http://spatialreference.org/ <http://spatialreference.org/>`_. 
 
 Also note that as you can see in the map examples above it is almost impossible to give an exact scale for these map images as it is  differrent at every place. 
+
+Lastly, if you are a developer, make sure that you understand the problem of the axis order confusion. 
 
 Error Messages
 --------------
@@ -294,7 +296,7 @@ The OGC WMS standard offers an optional request type which allows the user to qu
 Note
 ~~~~
 
-As the name ``GetFeatureInfo`` already suggests the server will not return geographic feature(s) but only selected alphanumerical information. For more functionality please refer to the OGC WFS standard which allows to compose complex queries for features including a geographic selection, alphanumeric values and so on. 
+As the name ``GetFeatureInfo`` already suggests the server will not return geographic feature(s) but only selected alphanumerical information. For more functionality please refer to the OGC WFS standard (link at the bottom) which allows to compose complex queries for features including a geographic selection, alphanumeric values and so on. 
 
 The ``GetFeatureInfo`` Request
 ------------------------------
@@ -343,15 +345,17 @@ Then the client will create a ``GetFeatureInfo`` request and submit all the info
 	&X=231&
 	Y=280
 
-Note that the URL contains information which we do not expect to need, for example the pixel size of the map. The size of the map is required for the server to decode the click position and then transform it into real world coordinates by using the BBOX (Bounding Box) parameter. Only then can the server query it's database for features. 
+Note that the URL contains information which we might not expect to need, for example the pixel size of the map. The size of the map is required for the server to decode the image coordinates of the click position. These are then transformed into the map data coordinate system using the BBOX (Bounding Box) parameter. With this information the server can query it's database for features. 
 
-If it finds anything it will return them in the requested format (here an HTML file). In this example the server finds a pub called "The Crown Stirrup" and a bus stop named "Ye Old Crown and Stirrup".  
+If the server has found features it will return them in the requested format. In this example the server finds a pub called "The Crown Stirrup" and a bus stop named "Ye Old Crown and Stirrup" and returns them in an HTML file.  
 
 	.. image:: images/GetFeatureInfo_result.png
 		:width: 305
 		:height: 107
 		:scale: 100
 		:alt: Result of a GetFeatureInfo request. 
+
+Use the link `GetFeatureInfo <http://metaspatial.net/cgi-bin/ogc-wms.xml?VERSION=1.3.0&REQUEST=GetFeatureInfo&SERVICE=WMS&LAYERS=osm_points&QUERY_LAYERS=osm_points&WIDTH=400&HEIGHT=300&CRS=EPSG:27700&BBOX=427966.6666666667,106800,431833.3333333333,109700&INFO_FORMAT=text/html&EXCEPTIONS=XML&X=231&Y=280&FEATURE_COUNT=100&>` _ to retrieve the data dynamically from the OGC WMS Demo and Reference Server. 
 
 Note 
 ~~~~
@@ -371,7 +375,7 @@ If you need more structured information the best bet is to request for a GML fil
 
 To get the information in the GML format simply change the parameter ``INFO_FORMAT`` to read: ::
 
-	INFO_FORMAT=text/html&
+	INFO_FORMAT=gml&
 
 Legends
 -------
