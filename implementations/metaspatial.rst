@@ -355,7 +355,7 @@ If the server has found features it will return them in the requested format. In
 		:scale: 100
 		:alt: Result of a GetFeatureInfo request. 
 
-Use the link `GetFeatureInfo <http://metaspatial.net/cgi-bin/ogc-wms.xml?VERSION=1.3.0&REQUEST=GetFeatureInfo&SERVICE=WMS&LAYERS=osm_points&QUERY_LAYERS=osm_points&WIDTH=400&HEIGHT=300&CRS=EPSG:27700&BBOX=427966.6666666667,106800,431833.3333333333,109700&INFO_FORMAT=text/html&EXCEPTIONS=XML&X=231&Y=280&FEATURE_COUNT=100&>` _ to retrieve the data dynamically from the OGC WMS Demo and Reference Server. 
+Use the link `GetFeatureInfo <http://metaspatial.net/cgi-bin/ogc-wms.xml?VERSION=1.3.0&REQUEST=GetFeatureInfo&SERVICE=WMS&LAYERS=osm_points&QUERY_LAYERS=osm_points&WIDTH=400&HEIGHT=300&CRS=EPSG:27700&BBOX=427966.6666666667,106800,431833.3333333333,109700&INFO_FORMAT=text/html&EXCEPTIONS=XML&X=231&Y=280&FEATURE_COUNT=100&>`_ to retrieve the data dynamically from the OGC WMS Demo and Reference Server. 
 
 Note 
 ~~~~
