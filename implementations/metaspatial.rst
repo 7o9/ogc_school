@@ -7,14 +7,14 @@ Metaspatial WMS 1.3 Server
 About this Page
 ---------------
 
-This page has been compiled as a quick reference and introduction to the OGC WMS interface and service standard. All map images on this page are dynamically requested by standard OGC WMS queries and rendered by the live OGC Demo Server operated by `metaspatial.net <http://metaspatial.net>`_. This page does **not** describe all the features and options the standard offers. Please find the full technical description of the OGC WMS standard on the web sites of the Open Geospatial Consortium at: http://www.opengeospatial.org/standards/wms 
+This page has been compiled as a quick reference and introduction to the OGC WMS interface and service standard. All map images on this page are dynamically requested by standard OGC WMS queries and rendered by the live `OGC WMS Demo and Reference Server <http://metaspatial.net/wiki/index.php/OGC_WMS_Demo_and_Reference_Server>`_ . This page does **not** describe all the features and options the standard offers. Please find the full technical description of the OGC WMS standard on the web sites of the Open Geospatial Consortium at: http://www.opengeospatial.org/standards/wms 
 
 End Point
 ----------
 
 The end point to access this service is: http://metaspatial.net/cgi-bin/ogc-wms.xml. The OGC WMS Capabilities document contains all information required to make an educated request. It can be retrieved by sending a `getCapabilities <http://metaspatial.net/cgi-bin/ogc-wms.xml?REQUEST=GetCapabilities&SERVICE=WMS&VERSION=1.3>`_ request to the server. 
 
-Current information about the status of this server can be found at the `metaspatial wiki <http://arnulf.us/OGC_WMS_Demo_and_Reference_Server>`_.
+Current information about the status of this server can be found at the `metaspatial wiki <http://metaspatial.net/wiki/index.php/OGC_WMS_Demo_and_Reference_Server>`_.
 
 
 Note
@@ -377,6 +377,8 @@ To get the information in the GML format simply change the parameter ``INFO_FORM
 
 	INFO_FORMAT=gml&
 
+Use the link `GetFeatureInfo with GML <http://metaspatial.net/cgi-bin/ogc-wms.xml?VERSION=1.3.0&REQUEST=GetFeatureInfo&SERVICE=WMS&LAYERS=osm_points&QUERY_LAYERS=osm_points&WIDTH=400&HEIGHT=300&CRS=EPSG:27700&BBOX=427966.6666666667,106800,431833.3333333333,109700&INFO_FORMAT=gml&EXCEPTIONS=XML&X=231&Y=280&FEATURE_COUNT=100&>`_ to get the GML file dynamically from the OGC WMS Demo and Reference Server. 
+
 Legends
 -------
 
@@ -399,7 +401,17 @@ The result shows a legend item with the color of the areas covered by National P
 		:scale: 100
 		:alt: Legend image for the National Parks layer. 
 
+Use the link `GetLegend <http://metaspatial.net/cgi-bin/ogc-wms.xml?version=1.3.0&service=WMS&request=GetLegendGraphic&sld_version=1.1.0&layer=nationalparks&format=image/png&STYLE=default>`_ to get the legend image dynamically from the OGC WMS Demo and Reference Server. 
+
 Note
 ~~~~
 
 Every server will return different looking legends. This makes it hard to impossible to create a homogeneous legend by using generic requests to different servers. Therefore especially dynamic clients must be aware that there are many different ways this feature can be implemented. 
+
+Links and Further Information
+-----------------------------
+
+Please note that this little tutorial will only help you to get started. For full information please refer to the standards documents on the Open Geospatial Consortium web site. You can find an even shorter introduction that may help your boss to understand why this standard is useful here. 
+
+- Full Standard Documents http://www.opengeospatial.org/standards/wms
+- OGC http://www.opengeospatial.org/standards/wms
