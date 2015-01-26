@@ -162,7 +162,7 @@ Use the link: `Get squashed Map <http://metaspatial.net/cgi-bin/ogc-wms.xml?VERS
 Reprojecting Maps
 -----------------
 
-The OGC WMS standard allows to project maps in different coordinate systems. So far we have been using the EPSG Code 27700 which is described as the "OSGB 1936 / British National Grid". It is useful to display the British Isles but will not work to display Peru in a useful way. Therefore we can switch between coordinate systems using any of the EPSG codes that are advertized by the server in the Capabilities document. The OGC Demo and Reference Server offers the following repojections :: 
+The OGC WMS standard allows to reproject data to into different coordinate systems. So far we have been using the EPSG Code 27700 which is described as the "OSGB 1936 / British National Grid". It is useful to display the British Isles but it will not work well to display the whole world in a useful way. Therefore the OGC WMS standard has built in the capcbility to switch between coordinate systems dynamically. Not ever coordinate system can be used for every location on the earth, therefor every WMS needs to advertize in the Capabilities document which coordinate systems it supports. The OGC Demo and Reference Server offers the following list of coordinate systems:: 
 
 	<CRS>EPSG:4326</CRS>
 	<CRS>EPSG:27700</CRS>
@@ -189,7 +189,7 @@ The OGC WMS standard allows to project maps in different coordinate systems. So 
 	<CRS>EPSG:3051</CRS>
 	<CRS>EPSG:900913</CRS>
 
-To reproject the maps we have to change the Coordinate Reference System (CRS) and the Bounding Box (BBOX) parameters. The result can look like this: 
+To reproject the maps we simply have to change the Coordinate Reference System (CRS) and the Bounding Box (BBOX) parameters. In the image below you can see two requests side by side, on the legt is the original EPSG:22770 and on the right hand side EPSG:4326: 
 
 	.. image:: images/GetMap_EPSG_27700_4326.png
 		:width: 456
