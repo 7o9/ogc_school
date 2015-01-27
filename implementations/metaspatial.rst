@@ -248,46 +248,6 @@ Also note that as you can see in the map examples above it is almost impossible 
 
 Lastly, if you are a developer, make sure that you understand the problem of the axis order confusion. 
 
-Error Messages
---------------
-
-In case the client causes an error by formulating a wrong request the server will return an error message. To demonstrate this we will request for a map with a layer named "Underview" (which does not exist on the server).
-
-Typically the server will return an error message like this: ::
-
-	<?xml version='1.0' encoding="ISO-8859-1" standalone="no" ?>
-		<ServiceExceptionReport version="1.3.0" xmlns="http://www.opengis.net/ogc" 
-		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-		xsi:schemaLocation="http://www.opengis.net/ogc
-		http://schemas.opengis.net//wms/1.3.0/exceptions_1_3_0.xsd">
-		<ServiceException code="LayerNotDefined">
-			msWMSLoadGetMapParams(): WMS server error. 
-			Invalid layer(s) given in the LAYERS parameter. 
-			A layer might be disabled for this request. 
-			Check wms/ows_enable_request settings.
-		</ServiceException>
-	</ServiceExceptionReport>
-
-`Note that different software may return different text messages along the ``ServiceException code``. `
-
-One problem may be that the client cannot display this message in the image display element. An HTML client in a browser would simply show the above message as a broken image, something like this:
-
-	.. image:: images/broken-image.png
-		:width: 23
-		:height: 27
-		:scale: 100
-		:alt: Crossed out image: This is a typical symbol displayed by browsers for content that cannot be rendered as a graphic image. 
-
-To prevent this from happening we can change the format of the error message (the EXCEPTIONS parameter) to INIMAGE. In that case we can see the error message printed into an image:
-
-	.. image:: images/ogc-wms_in-image_error.png
-		:width: 500
-		:height: 300
-		:scale: 100
-		:alt: Error message printed into an image file
-
-Note that the image will have exactly the pixel size that was requested by the client. 
-
 Getting Information about Objects "on" the Map
 ----------------------------------------------
 
@@ -408,6 +368,46 @@ Note
 
 Every server will return different looking legends. This makes it hard to impossible to create a homogeneous legend by using generic requests to different servers. Therefore especially dynamic clients must be aware that there are many different ways this feature can be implemented. 
 
+Error Messages
+--------------
+
+In case the client causes an error by formulating a wrong request the server will return an error message. To demonstrate this we will request for a map with a layer named "Underview" (which does not exist on the server).
+
+Typically the server will return an error message like this: ::
+
+	<?xml version='1.0' encoding="ISO-8859-1" standalone="no" ?>
+		<ServiceExceptionReport version="1.3.0" xmlns="http://www.opengis.net/ogc" 
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+		xsi:schemaLocation="http://www.opengis.net/ogc
+		http://schemas.opengis.net//wms/1.3.0/exceptions_1_3_0.xsd">
+		<ServiceException code="LayerNotDefined">
+			msWMSLoadGetMapParams(): WMS server error. 
+			Invalid layer(s) given in the LAYERS parameter. 
+			A layer might be disabled for this request. 
+			Check wms/ows_enable_request settings.
+		</ServiceException>
+	</ServiceExceptionReport>
+
+`Note that different software may return different text messages along the ``ServiceException code``. `
+
+One problem may be that the client cannot display this message in the image display element. An HTML client in a browser would simply show the above message as a broken image, something like this:
+
+	.. image:: images/broken-image.png
+		:width: 23
+		:height: 27
+		:scale: 100
+		:alt: Crossed out image: This is a typical symbol displayed by browsers for content that cannot be rendered as a graphic image. 
+
+To prevent this from happening we can change the format of the error message (the EXCEPTIONS parameter) to INIMAGE. In that case we can see the error message printed into an image:
+
+	.. image:: images/ogc-wms_in-image_error.png
+		:width: 500
+		:height: 300
+		:scale: 100
+		:alt: Error message printed into an image file
+
+Note that the image will have exactly the pixel size that was requested by the client. 
+
 Links and Further Information
 -----------------------------
 
@@ -415,3 +415,4 @@ Please note that this little tutorial will only help you to get started. For ful
 
 - Full Standard Documents http://www.opengeospatial.org/standards/wms
 - OGC http://www.opengeospatial.org/standards/wms
+- Leightweight introduction to the `OGC WMS Standard <http://arnulf.us/OGC_WMS>`_
