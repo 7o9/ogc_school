@@ -327,11 +327,39 @@ The OGC WMS standard does not specify what kind of a text or HTML file is return
 
 If you need more structured information the best bet is to request for a GML file. 
 
-	.. image:: images/ogc-wms_getfeatureinfo_result.gml.png
-		:width: 305
-		:height: 107
-		:scale: 100
-		:alt: Result of a GetFeatureInfo request. 
+.. code-block:: xml
+
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<msGMLOutput 
+	 xmlns:gml="http://www.opengis.net/gml"
+	 xmlns:xlink="http://www.w3.org/1999/xlink"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<osm_points_layer>
+	<gml:name>OpenStreetMap point objects</gml:name>
+		<osm_points_feature>
+			<gml:boundedBy>
+				<gml:Box srsName="EPSG:27700">
+					<gml:coordinates>430185.447238,107033.115034 430185.447238,107033.115034</gml:coordinates>
+				</gml:Box>
+			</gml:boundedBy>
+			<osm_id>16494895</osm_id>
+			<timestamp>2006-09-24T01:55:58Z</timestamp>
+			<name>The Crown Stirrup</name>
+			<type>pub</type>
+		</osm_points_feature>
+		<osm_points_feature>
+			<gml:boundedBy>
+				<gml:Box srsName="EPSG:27700">
+					<gml:coordinates>430172.215950,107071.994504 430172.215950,107071.994504</gml:coordinates>
+				</gml:Box>
+			</gml:boundedBy>
+			<osm_id>503420358</osm_id>
+			<timestamp>2009-09-20T16:44:15Z</timestamp>
+			<name>Ye Old Crown and Stirrup</name>
+			<type>bus_stop</type>
+		</osm_points_feature>
+	</osm_points_layer>
+</msGMLOutput>
 
 To get the information in the GML format simply change the parameter ``INFO_FORMAT`` to read: ::
 
@@ -373,7 +401,9 @@ Error Messages
 
 In case the client causes an error by formulating a wrong request the server will return an error message. To demonstrate this we will request for a map with a layer named "Underview" (which does not exist on the server).
 
-Typically the server will return an error message like this: ::
+Typically the server will return an error message like this:
+
+.. code-block:: xml
 
 	<?xml version='1.0' encoding="ISO-8859-1" standalone="no" ?>
 		<ServiceExceptionReport version="1.3.0" xmlns="http://www.opengis.net/ogc" 
@@ -407,6 +437,91 @@ To prevent this from happening we can change the format of the error message (th
 		:alt: Error message printed into an image file
 
 Note that the image will have exactly the pixel size that was requested by the client. 
+
+Origin of the Data rendered by the Service
+------------------------------------------
+
+The OGC  server uses `OS OpenData <http://www.ordnancesurvey.co.uk/oswebsite/products/os-opendata.html>`_ produced and maintained by the Ordnance Survey Great Britain. 
+
+License
+~~~~~~~
+The data is licensed under the `UK Open Government license <http://www.nationalarchives.gov.uk/doc/open-government-licence/>`_. 
+
+Layers
+~~~~~~~
+
+The  OGC WMS Demo and Reference Server hosts several raster and vector data layers containing point, line and polygon features. The service consists of 25 layers including the root layer (0) and two grouped layers, "Topography" and "Infrastructure". The "Topography" layer consists of 10 sub layers, "Infrastructure" of 6 sub layers. See details below. 
+
+DTM
++++
+
+The "bottom" layer is the DTM of the UK. The data ranges from zero-values representing elevation 0 which is rendered in black to the highest elevation of approximately 1400 meters rendered in white. Intermediate elevations are represented in shades of grey. 
+
+Overview
+++++++++
+
+The "Overview" layer (source data in TIFF format) shows the British Isles in a cartographic design suitable for small scales down to 1:250k. 
+
+Raster 250K
++++++++++++
+
+The "Raster 250K" layer cartography is optimzed for display around 1:250.000. 
+
+National Parks
+++++++++++++++
+
+The National Parks are polygon features with a default dark green semi transparent filling. The cartographic representation can be modified using the OGC SLD standard. 
+
+Topography
+++++++++++
+
+The layers contained in the group "Topography" are based on the Ordnance Survey "Vector Map District" product. The "Topography" layers contains 
+
+- Tidalwater
+- Foreshore
+- Woodland
+- Surfacewater
+- Surfacewater-linear
+- Rivernames
+- Lakenames
+- Contour Lines
+- Contour Lines 50m interval
+- Peaks
+
+Infrastructure
+++++++++++++++
+
+The grouped layer "Infrastructure" contains the following sub layers. 
+
+- Buildings (or rather, the outlines or building blocks)
+- Railway Tracks
+- Roads (wide representation)
+- Roads-filling (narrower representation to allow for cartographic repreentation as a filled line)
+- Railway Stations
+
+Selected OpenStreetMap Point Objects
+++++++++++++++++++++++++++++++++++++
+
+The point objects have been retrieved from `OpenStreetMap <http://openstreetmap.org>`_ by selecting the tag "Pub" (and similar), campsites and parking spaces. The symbols are represented at a scale greater than 1:50.000. This layer is also queryable so that it can show how a FeatureInfo request works.
+
+Named Places
+++++++++++++
+
+Named places are another layer containing Ordnance Survey's OpenSpace VectorMap District data also represented at a scale greater than 1:50.000. 
+
+Source Data Coordinate System
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The source data is available for download at the Ordnance Survey OpenSpace web site in the coordinate system `EPSG:27700 (OSGB 1936 / British National Grid) <http://spatialreference.org/ref/epsg/27700/>`_. 
+
+The server is configured to support a European focused subset of EPSGs codes so that the data can be combined with other European services to show compatibility with INSPIRE etc.
+
+
+Contact
+-------
+
+Please contact the `operator <http://metaspatial.net/w/index.php/Arnulf_Christl>`_ if you have questions regarding this service.
+
 
 Links and Further Information
 -----------------------------
