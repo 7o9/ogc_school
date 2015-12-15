@@ -1,6 +1,6 @@
 .
 
-Metaspatial WMS 1.3 Server 
+OGC WMS 1.3 Demo and Reference Server 
 ===========================
 
 
