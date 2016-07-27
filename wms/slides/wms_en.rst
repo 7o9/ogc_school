@@ -32,7 +32,7 @@ WMS Operations
 - GetMap
 - GetFeatureInfo
 
-WMS Exmpales
+WMS Examples
 ------------
 The examples are based on a local installation of GeoServer
 http://geoserver.org/
